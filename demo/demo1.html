@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>underscorejs Demo</title>
+</head>
+
+<body>
+    <!-- <script src="underscore.js"></script> -->
+    <script src="../DIY/1/_underscore.js"></script>
+    <script>
+    console.info(_);
+    console.info(_.prototype);
+    /**
+     * 数组处理
+     */
+    var arr = [1, 2, 3];
+    var obj = {
+        log: function() {
+            console.log('1');
+        }
+    };
+    _.each([1, 2, 3], function(ele, idx) {
+        console.log(idx + " : " + ele);
+    });
+/*    _.each([1, 2, 3], console.log);
+    //1 0 [1, 2, 3]
+    //2 1 [1, 2, 3]
+    //3 2 [1, 2, 3]
+    _.each({
+        one: 1,
+        two: 2,
+        three: 3
+    }, console.log);*/
+    
+    _([1, 2, 3]).each(function(n) {
+        console.log(n * 2);
+    });
+
+    _.chain(arr)
+        .each(function(ele) {
+            console.log(ele);
+        });
+    var $$ = _.noConflict();//previousUnderscore
+    $$.each([1, 2, 3], function(ele, idx) {
+        console.info(idx + " : " + ele);
+    });
+    </script>
+</body>
+
+</html>
