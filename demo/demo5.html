@@ -8,7 +8,7 @@
 
 <body>
     <!-- <script src="underscore.js"></script> -->
-    <script src="../DIY/2/_underscore.js"></script>
+    <script src="../DIY/3/_underscore.js"></script>
     <script>
     console.info(_);
     console.info(_.prototype);
@@ -23,20 +23,17 @@
         name:'moe'
     };
     var obj1 = {name:'zry'};
-    var obj2 = {selected: true, visible: true};
-
-    console.log(obj1 === _.identity(obj1));
-    var ready = _.isMatch(obj2,{selected: true, visible: true});//返回一个断言函数，这个函数会给你一个断言 可以用来辨别 给定的对象是否匹配attrs指定键/值属性
-    console.log(ready);
-    ////////////////////////////////////////////////////////
-    console.log(_.extend({name: 'moe'}, {age: 50}));
 
     _.map(obj1,function(ele,key,obj){
         console.log(ele,key,obj);
     });
     console.info(_.map(obj1,{name:'zry'}));
 
-    
+    var evens = _.filter([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
+    console.log(evens);
+
+    console.log(_.escape('Curly, Larry & Moe'));
+    console.log(_.unescape('Curly, Larry &amp; Moe'));
     </script>
 </body>
 

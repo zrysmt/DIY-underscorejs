@@ -103,6 +103,18 @@
         return results;
     };
 
+    _.filter = _.select = function(obj, predicate, context) {
+        var results = [];
+        predicate = cb(predicate, context);
+        _.each(obj, function(value, index, list) {
+            if (predicate(value, index, list)) results.push(value);
+        });
+        return results;
+    };
+
+
+
+
     _.keys = function(obj) {
         //不是对象/函数,返回空数组
         if (!_.isObject(obj)) return [];
@@ -191,6 +203,38 @@
         return this;
     };
 
+    var escapeMap = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#x27;',
+        '`': '&#x60;'
+    };
+    var createEscaper = function(map) {
+        var escaper = function(match) { //match 匹配的子串
+            return map[match];
+        };
+        var source = '(?:' + _.keys(map).join('|') + ')';
+        var testRegexp = RegExp(source);
+        var replaceRegexp = RegExp(source, 'g');
+        return function(string) {
+            string = string == null ? '' : '' + string;
+            return testRegexp.test(string) ? string.replace(replaceRegexp, escaper) : string;
+        };
+    };
+    _.escape = createEscaper(escapeMap);
+    _.invert = function(obj) {
+        var result = {};
+        var keys = _.keys(obj);
+        for (var i = 0, length = keys.length; i < length; i++) {
+            result[obj[keys[i]]] = keys[i];
+        }
+        return result;
+    };
+    var unescapeMap = _.invert(escapeMap);
+    _.unescape = createEscaper(unescapeMap);
+
     _.identity = function(value) {
         return value;
     };
@@ -233,8 +277,9 @@
     };
     _.extend = createAssigner(_.allKeys);
     _.extendOwn = _.assign = createAssigner(_.keys);
+    
 
-     if (typeof define == 'function' && define.amd) {
+    if (typeof define == 'function' && define.amd) {
         //定义一个模块并且起个名字
         define('_underscore', [], function() {
             return _;
