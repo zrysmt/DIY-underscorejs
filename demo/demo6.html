@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>underscorejs Demo</title>
+</head>
+
+<body>
+    <div id="div1">
+        创建并返回一个像节流阀一样的函数，当重复调用函数的时候，最多每隔 wait毫秒调用一次该函数。对于想控制一些触发频率较高的事件有帮助。（注：详见：javascript函数的throttle和debounce） 默认情况下，throttle将在你调用的第一时间尽快执行这个function，并且，如果你在wait周期内调用任意次数的函数，都将尽快的被覆盖。如果你想禁用第一次首先执行的话，传递{leading: false}，还有如果你想禁用最后一次执行的话，传递{trailing: false}
+    </div>
+    <script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+    <!-- <script src="underscore.js"></script> -->
+    <script src="../DIY/4/_underscore.js"></script>
+    <script>
+        function updatePosition() {
+            console.log($('#div1').height(), $('#div1').width());
+        }
+        //不带options即第三个参数的时候(默认情况下)，会执行两次，一次是执行时候的状态(A) ，一次是执行后的状态(B)
+        // {leading: false }不会执行第一次执行时的状态(A)
+        // {trailing: false}不会执行最后一次执行后的状态(B)
+        var throttled = _.throttle(updatePosition, 1000 /*,{
+            leading: false,
+            trailing: false
+        }*/);
+        var debounce = _.debounce(updatePosition, 1000,true);
+        
+        // $(window).resize(throttled); 
+        $(window).resize(debounce);
+    </script>
+</body>
+
+</html>
