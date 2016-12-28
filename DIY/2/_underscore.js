@@ -1,5 +1,5 @@
 /**
- * DIY 一个underscore库1
+ * DIY 一个underscore库2
  */
 (function() {
     //在浏览器上是window(self),服务器上是global
